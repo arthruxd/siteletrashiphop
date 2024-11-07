@@ -51,7 +51,7 @@
             font-family: 'Montserrat', sans-serif;
             font-weight: 600;
             transition: all 0.3s ease;
-        
+            display: none; /* Inicialmente oculto */
         }
 
         .delete-btn:hover {
@@ -300,31 +300,4 @@
                 padding: 1rem 2rem;
                 font-size: 1rem;
             }
-        }
-        .edit-btn {
-            background: linear-gradient(45deg, #FFD700, #FFA500); /* Mesma cor de fundo do botão principal */
-            color: #222; /* Cor do texto */
-            border: none;
-            padding: 0.8rem 1.5rem;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            font-weight: 600;
-            font-family: 'Montserrat', sans-serif;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-top: 1rem;
-            display: inline-block;
-        }
-        
-        /* Efeito de hover para o botão Editar */
-        .edit-btn:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
-        }
-        
-        /* Efeito de clique */
-        .edit-btn:active {
-            transform: translateY(1px);
         }
