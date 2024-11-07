@@ -75,11 +75,11 @@ async function exibirLetras() {
             // Adiciona o botão "Editar" se o IP do usuário coincidir com o IP armazenado
             if (letra.ip === ipAtual) {
                 const editBtn = document.createElement('button');
-                editBtn.className = 'edit-btn';
+                editBtn.className = 'edit-btn'; // Certifique-se de que essa classe está definida
                 editBtn.textContent = 'Editar';
-                // Chamando a função editarLetra ao clicar no botão
                 editBtn.addEventListener('click', () => editarLetra(letra));
                 letraDiv.appendChild(editBtn);
+
             }
 
             // Adiciona o botão "Excluir" se o usuário for administrador
