@@ -5,22 +5,22 @@ const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 let isAdmin = false;
-
-function createNote() {
-    // Code to create a music note animation
-}
+const letrasContainer = document.getElementById('letrasContainer');
+const musicNotes = document.getElementById('musicNotes');
 
 function showNotification(message) {
     alert(message);
 }
 
 function atualizarBotoesDelete() {
-    // Code to update the visibility of delete buttons
+    const deleteBtns = document.querySelectorAll('.delete-btn');
+    deleteBtns.forEach(btn => {
+        btn.style.display = isAdmin ? 'block' : 'none';
+    });
 }
 
 async function enviarLetra(nome, titulo, letra) {
-    // Code to send a new lyric to the database
-    const { data, error } = await supabase
+    const { error } = await supabase
         .from('letras')
         .insert([{ nome, titulo, letra }]);
 
@@ -41,7 +41,6 @@ async function exibirLetras() {
         console.error('Erro ao carregar letras:', error.message);
         alert('Erro ao carregar letras');
     } else {
-        const letrasContainer = document.getElementById('letrasContainer');
         letrasContainer.innerHTML = '';
         letras.forEach(letra => {
             const letraDiv = document.createElement('div');
@@ -50,9 +49,15 @@ async function exibirLetras() {
                 <div class="letra-titulo">${letra.titulo}</div>
                 <div class="letra-autor">por ${letra.nome}</div>
                 <div class="letra-conteudo">${letra.letra}</div>
-                ${isAdmin ? `<button class="delete-btn" onclick="deletarLetra('${letra.id}')">Excluir</button>` : ''}
+                ${isAdmin ? `<button class="delete-btn">Excluir</button>` : ''}
             `;
             letrasContainer.appendChild(letraDiv);
+
+            // Event listener for delete button if admin
+            if (isAdmin) {
+                const deleteBtn = letraDiv.querySelector('.delete-btn');
+                deleteBtn.addEventListener('click', () => deletarLetra(letra.id));
+            }
         });
         atualizarBotoesDelete();
     }
@@ -76,40 +81,51 @@ async function deletarLetra(id) {
     }
 }
 
+function createNote() {
+    const notes = ['♪', '♫', '♬', '♩'];
+    const note = document.createElement('span');
+    note.className = 'note';
+    note.textContent = notes[Math.floor(Math.random() * notes.length)];
+    note.style.left = Math.random() * 100 + 'vw';
+    note.style.animationDuration = (15 + Math.random() * 10) + 's';
+    note.style.transform = `rotate(${Math.random() * 360}deg)`;
+    musicNotes.appendChild(note);
+
+    note.addEventListener('animationend', () => {
+        note.remove();
+    });
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     const loginButton = document.getElementById('loginButton');
     const logoutButton = document.getElementById('logoutButton');
-    const musicNotes = document.getElementById('musicNotes');
-    const letrasContainer = document.getElementById('letrasContainer');
-
-      function createNote() {
-        const notes = ['♪', '♫', '♬', '♩'];
-        const note = document.createElement('span');
-        note.className = 'note';
-        note.textContent = notes[Math.floor(Math.random() * notes.length)];
-        note.style.left = Math.random() * 100 + 'vw';
-        note.style.animationDuration = (15 + Math.random() * 10) + 's';
-        note.style.transform = `rotate(${Math.random() * 360}deg)`;
-        musicNotes.appendChild(note);
-
-        note.addEventListener('animationend', () => {
-            note.remove();
-        });
-    }
 
     setInterval(createNote, 1500);
-
-    for(let i = 0; i < 10; i++) {
+    for (let i = 0; i < 10; i++) {
         setTimeout(createNote, i * 200);
-
     }
 
     loginButton.addEventListener('click', function() {
-        // Login functionality
+        const username = prompt('Nome de Usuário:');
+        const password = prompt('Senha:');
+
+        if (username === 'equipe8' && password === 'admin') {
+            isAdmin = true;
+            showNotification('Login realizado com sucesso!');
+            logoutButton.style.display = 'block';
+            loginButton.style.display = 'none';
+            exibirLetras();
+        } else {
+            showNotification('Credenciais inválidas!');
+        }
     });
 
     logoutButton.addEventListener('click', function() {
-        // Logout functionality
+        isAdmin = false;
+        showNotification('Você saiu com sucesso.');
+        logoutButton.style.display = 'none';
+        loginButton.style.display = 'block';
+        exibirLetras();
     });
 
     document.getElementById('letraForm').addEventListener('submit', function(event) {
