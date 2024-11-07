@@ -1,3 +1,15 @@
+// Ip grabber
+async function obterIP() {
+    try {
+        const response = await fetch('https://api.ipify.org?format=json');
+        const data = await response.json();
+        return data.ip;
+    } catch (error) {
+        console.error("Erro ao obter o IP:", error);
+        return null;
+    }
+}
+
 // Create a single supabase client for interacting with your database
 const supabase = createClient('https://qjxdlwzugeurfkdrzaov.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFqeGRsd3p1Z2V1cmZrZHJ6YW92Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzA4OTY4NTAsImV4cCI6MjA0NjQ3Mjg1MH0.heeFBtzQwHSGHU88HMkeZftDG5IlltTFUBqq-DadTec')
 import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
@@ -20,9 +32,16 @@ function atualizarBotoesDelete() {
 }
 
 async function enviarLetra(nome, titulo, letra) {
+    const ip = await obterIP(); // Obtenha o IP do usuário
+
+    if (!ip) {
+        alert("Não foi possível obter seu IP. Tente novamente.");
+        return;
+    }
+
     const { error } = await supabase
         .from('letras')
-        .insert([{ nome, titulo, letra }]);
+        .insert([{ nome, titulo, letra, ip }]); // Inclui o IP no registro
 
     if (error) {
         alert('Erro ao enviar letra: ' + error.message);
@@ -34,6 +53,7 @@ async function enviarLetra(nome, titulo, letra) {
 
 // Declare fora de outras funções para garantir que esteja no escopo global
 async function exibirLetras() {
+    const ipAtual = await obterIP(); // Obtenha o IP do usuário atual
     const { data: letras, error } = await supabase.from('letras').select('*');
 
     if (error) {
@@ -50,7 +70,16 @@ async function exibirLetras() {
                 <div class="letra-conteudo">${letra.letra}</div>
             `;
 
-            // Adiciona o botão de exclusão se for administrador
+            // Adiciona o botão "Editar" se o IP do usuário coincidir com o IP armazenado
+            if (letra.ip === ipAtual) {
+                const editBtn = document.createElement('button');
+                editBtn.className = 'edit-btn';
+                editBtn.textContent = 'Editar';
+                editBtn.addEventListener('click', () => editarLetra(letra));
+                letraDiv.appendChild(editBtn);
+            }
+
+            // Adiciona o botão "Excluir" se o usuário for administrador
             if (isAdmin) {
                 const deleteBtn = document.createElement('button');
                 deleteBtn.className = 'delete-btn';
@@ -60,10 +89,45 @@ async function exibirLetras() {
             }
 
             letrasContainer.appendChild(letraDiv);
+            // Adiciona o botão "Editar" se o IP do usuário coincidir com o IP armazenado
+            if (letra.ip === ipAtual) {
+                const editBtn = document.createElement('button');
+                editBtn.className = 'edit-btn';
+                editBtn.textContent = 'Editar';
+                editBtn.addEventListener('click', () => editarLetra(letra));
+                letraDiv.appendChild(editBtn);
+            }
+
         });
-        atualizarBotoesDelete();
     }
 }
+// Função para iniciar a edição da letra
+function editarLetra(letra) {
+    // Exibir prompts para o usuário editar os dados
+    const novoTitulo = prompt("Edite o título:", letra.titulo);
+    const novaLetra = prompt("Edite a letra:", letra.letra);
+
+    // Verifique se o usuário realmente inseriu novos valores
+    if (novoTitulo && novaLetra) {
+        atualizarLetra(letra.id, novoTitulo, novaLetra);
+    }
+}
+
+// Função para atualizar a letra no banco de dados
+async function atualizarLetra(id, titulo, letra) {
+    const { error } = await supabase
+        .from('letras')
+        .update({ titulo, letra })
+        .eq('id', id);
+
+    if (error) {
+        alert('Erro ao atualizar letra: ' + error.message);
+    } else {
+        alert('Letra atualizada com sucesso!');
+        await exibirLetras(); // Recarrega a lista de letras para mostrar a versão editada
+    }
+}
+
 
 async function deletarLetra(id) {
     if (!isAdmin) return;
