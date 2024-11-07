@@ -56,6 +56,8 @@ async function enviarLetra(nome, titulo, letra) {
 // Declare fora de outras funções para garantir que esteja no escopo global
 async function exibirLetras() {
     const ipAtual = await obterIP(); // Obtenha o IP do usuário atual
+    console.log("IP atual do usuário:", ipAtual); // Log para verificar o IP do usuário
+
     const { data: letras, error } = await supabase.from('letras').select('*');
 
     if (error) {
@@ -64,6 +66,8 @@ async function exibirLetras() {
     } else {
         letrasContainer.innerHTML = '';
         letras.forEach(letra => {
+            console.log(`IP da letra: ${letra.ip}, IP atual: ${ipAtual}, isAdmin: ${isAdmin}`); // Log para cada letra
+
             const letraDiv = document.createElement('div');
             letraDiv.className = 'letra-salva';
             letraDiv.innerHTML = `
@@ -74,16 +78,17 @@ async function exibirLetras() {
 
             // Adiciona o botão "Editar" se o IP do usuário coincidir com o IP armazenado
             if (letra.ip === ipAtual) {
+                console.log("Adicionando botão de edição para a letra:", letra.titulo); // Log para verificar o botão de edição
                 const editBtn = document.createElement('button');
                 editBtn.className = 'edit-btn';
                 editBtn.textContent = 'Editar';
-                // Chama a função editarLetra ao clicar no botão
                 editBtn.addEventListener('click', () => editarLetra(letra));
                 letraDiv.appendChild(editBtn); // Adiciona o botão "Editar" dentro de letraDiv
             }
 
             // Adiciona o botão "Excluir" se o usuário for administrador
             if (isAdmin) {
+                console.log("Adicionando botão de exclusão para a letra:", letra.titulo); // Log para verificar o botão de exclusão
                 const deleteBtn = document.createElement('button');
                 deleteBtn.className = 'delete-btn';
                 deleteBtn.textContent = 'Excluir';
