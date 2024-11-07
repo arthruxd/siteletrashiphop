@@ -4,332 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Envie Suas Letras de Hip Hop</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <style>
-        /* Estilo para as letras salvas */
- .letra-salva {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 15px;
-    padding: 1.5rem;
-    margin: 1.5rem 0;
-    text-align: left;
-    backdrop-filter: blur(5px);
-    border: 1px solid rgba(255, 215, 0, 0.2);
-    transition: all 0.3s ease;
-    position: relative;
-}
-
-.letra-salva:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-}
-
-.letra-titulo {
-    color: #FFD700;
-    font-size: 1.4rem;
-    margin-bottom: 0.5rem;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 700;
-}
-
-.letra-autor {
-    color: #FFA500;
-    font-size: 1rem;
-    margin-bottom: 1rem;
-    font-style: italic;
-}
-
-.letra-conteudo {
-    color: #fff;
-    white-space: pre-wrap;
-    line-height: 1.6;
-    font-family: 'Inter', sans-serif;
-}
-
-.delete-btn {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    background: rgba(255, 0, 0, 0.8);
-    color: white;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
-    cursor: pointer;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    display: none; /* Inicialmente oculto */
-}
-
-.delete-btn:hover {
-    background: rgba(255, 0, 0, 1);
-    transform: scale(1.05);
-}
-
-#letrasSalvas h2 {
-    color: #FFD700;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 2rem;
-    margin: 2rem 0;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-/* Adicione uma divisória entre as seções */
-#letrasSalvas {
-    margin-top: 3rem;
-    padding-top: 3rem;
-    border-top: 2px solid rgba(255, 215, 0, 0.2);
-}
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        @keyframes gradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        @keyframes slideIn {
-            from {
-                transform: translateY(-20px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        body {
-            background: linear-gradient(-45deg, #1a1a2e, #16213e, #1e3163, #241b2f);
-            background-size: 400% 400%;
-            animation: gradient 15s ease infinite;
-            color: #eee;
-            text-align: center;
-            padding: 2rem;
-            overflow-x: hidden;
-            min-height: 100vh;
-            font-family: 'Inter', sans-serif;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 2rem auto;
-            background-color: rgba(26, 32, 44, 0.9);
-            padding: 2.5rem;
-            border-radius: 20px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(8px);
-            animation: slideIn 1s ease-out;
-            position: relative;
-        }
-
-        h1 {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 900;
-            color: #FFD700;
-            font-size: 3.2rem;
-            margin-bottom: 1.5rem;
-            text-transform: uppercase;
-            letter-spacing: -1px;
-            background: linear-gradient(45deg, #FFD700, #FFA500);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-            padding-top: 2rem; /* Added padding to prevent overlap */
-        }
-
-        .form-group {
-            margin-bottom: 1.8rem;
-            text-align: left;
-            opacity: 0;
-            animation: slideIn 0.5s ease-out forwards;
-        }
-
-        .form-group:nth-child(1) { animation-delay: 0.2s; }
-        .form-group:nth-child(2) { animation-delay: 0.4s; }
-        .form-group:nth-child(3) { animation-delay: 0.6s; }
-
-        label {
-            display: block;
-            margin-bottom: 0.8rem;
-            font-weight: 600;
-            color: #FFD700;
-            font-size: 1.1rem;
-            letter-spacing: 0.5px;
-            font-family: 'Montserrat', sans-serif;
-        }
-
-        textarea, input {
-            width: 100%;
-            padding: 1rem;
-            border: 2px solid rgba(255, 215, 0, 0.3);
-            border-radius: 12px;
-            background-color: rgba(255, 255, 255, 0.95);
-            color: #333;
-            font-size: 1.1rem;
-            font-family: 'Inter', sans-serif;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        textarea:focus, input:focus {
-            outline: none;
-            border-color: #FFD700;
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
-            transform: translateY(-2px);
-        }
-
-        .btn {
-            background: linear-gradient(45deg, #FFD700, #FFA500);
-            color: #222;
-            border: none;
-            padding: 1.2rem 2.5rem;
-            border-radius: 12px;
-            cursor: pointer;
-            font-size: 1.1rem;
-            font-weight: 600;
-            font-family: 'Montserrat', sans-serif;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-top: 1rem;
-        }
-
-        .btn:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
-        }
-
-        .btn:active {
-            transform: translateY(1px);
-        }
-
-        /* Modified login/logout button styles */
-        .auth-buttons {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            z-index: 1000; /* Ensure buttons stay on top */
-        }
-
-        #loginButton, #logoutButton {
-            background: transparent;
-            color: #FFD700;
-            border: 2px solid #FFD700;
-            padding: 0.8rem 1.5rem;
-            border-radius: 12px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            font-weight: 600;
-            font-family: 'Montserrat', sans-serif;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(5px);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        #loginButton:hover, #logoutButton:hover {
-            background-color: rgba(255, 215, 0, 0.2);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
-        }
-
-        #logoutButton {
-            display: none;
-        }
-
-        .footer {
-            margin-top: 3rem;
-            padding: 1.8rem;
-            background-color: rgba(26, 32, 44, 0.8);
-            border-radius: 15px;
-            color: #ccc;
-            font-family: 'Inter', sans-serif;
-            animation: slideIn 0.5s ease-out;
-            animation-delay: 0.8s;
-            opacity: 0;
-            animation-fill-mode: forwards;
-        }
-
-        .footer strong {
-            color: #FFD700;
-            font-weight: 600;
-            font-family: 'Montserrat', sans-serif;
-        }
-
-        .music-notes {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        .note {
-            position: absolute;
-            color: rgba(255, 215, 0, 0.2);
-            font-size: 24px;
-            animation: floatNote 15s linear infinite;
-        }
-
-        @keyframes floatNote {
-            0% {
-                transform: translateY(100vh) rotate(0deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-100px) rotate(360deg);
-                opacity: 0;
-            }
-            
-        }
-    </style>
 </head>
 <body>
     <div class="music-notes" id="musicNotes"></div>
     <div class="container">
         <div class="auth-buttons">
-            <button id="loginButton">Admin Login</button>
-            <button id="logoutButton">Logout</button>
+            <button id="loginButton" aria-label="Login como administrador">Admin Login</button>
+            <button id="logoutButton" aria-label="Sair">Logout</button>
         </div>
 
         <h1>Envie Sua Letra de Hip Hop</h1>
         <p>Compartilhe sua letra de hip hop em nosso site! Escreva abaixo:</p>
         
-        <form id="letraForm">
+        <form id="letraForm" aria-label="Formulário para envio de letras">
             <div class="form-group">
                 <label for="nome">Seu Nome:</label>
-                <input type="text" id="nome" name="nome" required maxlength="50">
+                <input type="text" id="nome" name="nome" required maxlength="50" aria-required="true">
             </div>
             
             <div class="form-group">
                 <label for="titulo">Título da Letra:</label>
-                <input type="text" id="titulo" name="titulo" required maxlength="100">
+                <input type="text" id="titulo" name="titulo" required maxlength="100" aria-required="true">
             </div>
 
             <div class="form-group">
                 <label for="letra">Sua Letra:</label>
-                <textarea id="letra" name="letra" required minlength="10" maxlength="5000" rows="10"></textarea>
+                <textarea id="letra" name="letra" required minlength="10" maxlength="5000" rows="10" aria-required="true"></textarea>
             </div>
 
             <button type="submit" class="btn">Enviar Letra</button>
         </form>
 
-        <!-- Seção para exibir letras salvas -->
         <div id="letrasSalvas">
             <h2>Letras Enviadas</h2>
             <div id="letrasContainer"></div>
@@ -340,131 +47,7 @@
             <p>Arthur Fidelis, Guilherme Luck, Nicolas Magalhães e Rodrigo Tutume</p>
         </div>
     </div>
-
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-    let isAdmin = false;
-    const loginButton = document.getElementById('loginButton');
-    const logoutButton = document.getElementById('logoutButton');
-    const musicNotes = document.getElementById('musicNotes');
-    const letrasContainer = document.getElementById('letrasContainer');
-
-    // Função para criar notas musicais flutuantes
-    function createNote() {
-        const notes = ['♪', '♫', '♬', '♩'];
-        const note = document.createElement('span');
-        note.className = 'note';
-        note.textContent = notes[Math.floor(Math.random() * notes.length)];
-        note.style.left = Math.random() * 100 + 'vw';
-        note.style.animationDuration = (15 + Math.random() * 10) + 's';
-        note.style.transform = `rotate(${Math.random() * 360}deg)`;
-        musicNotes.appendChild(note);
-
-        note.addEventListener('animationend', () => {
-            note.remove();
-        });
-    }
-
-    setInterval(createNote, 1500);
-
-    for(let i = 0; i < 10; i++) {
-        setTimeout(createNote, i * 200);
-    }
-
-    function showNotification(message) {
-        alert(message);
-    }
-
-    function atualizarBotoesDelete() {
-        const deleteBtns = document.querySelectorAll('.delete-btn');
-        deleteBtns.forEach(btn => {
-            btn.style.display = isAdmin ? 'block' : 'none';
-        });
-    }
-
-    loginButton.addEventListener('click', function() {
-        const username = prompt('Nome de Usuário:');
-        const password = prompt('Senha:');
-
-        if (username === 'equipe8' && password === 'admin') {
-            isAdmin = true;
-            showNotification('Login realizado com sucesso!');
-            logoutButton.style.display = 'block';
-            loginButton.style.display = 'none';
-            atualizarBotoesDelete();
-            exibirLetras(); // Atualiza a exibição para mostrar os botões de delete
-        } else {
-            showNotification('Credenciais inválidas!');
-        }
-    });
-
-    logoutButton.addEventListener('click', function() {
-        isAdmin = false;
-        showNotification('Você saiu com sucesso.');
-        logoutButton.style.display = 'none';
-        loginButton.style.display = 'block';
-        atualizarBotoesDelete();
-        exibirLetras(); // Atualiza a exibição para esconder os botões de delete
-    });
-
-    // Função para salvar letras no localStorage
-    document.getElementById('letraForm').addEventListener('submit', function(event) {
-        event.preventDefault();
-
-        const nome = document.getElementById('nome').value;
-        const titulo = document.getElementById('titulo').value;
-        const letra = document.getElementById('letra').value;
-        
-        const letraObj = {
-            id: Date.now(),
-            nome,
-            titulo,
-            letra
-        };
-
-        const letrasSalvas = JSON.parse(localStorage.getItem('letras')) || [];
-        letrasSalvas.push(letraObj);
-        localStorage.setItem('letras', JSON.stringify(letrasSalvas));
-
-        this.reset();
-        showNotification('Letra enviada com sucesso!');
-        exibirLetras();
-    });
-
-    // Função para excluir uma letra
-    window.deletarLetra = function(id) {
-        if (!isAdmin) return;
-        
-        if (confirm('Tem certeza que deseja excluir esta letra?')) {
-            let letrasSalvas = JSON.parse(localStorage.getItem('letras')) || [];
-            letrasSalvas = letrasSalvas.filter(letra => letra.id !== id);
-            localStorage.setItem('letras', JSON.stringify(letrasSalvas));
-            exibirLetras();
-            showNotification('Letra excluída com sucesso!');
-        }
-    }
-
-    // Função para exibir letras salvas
-    function exibirLetras() {
-        const letras = JSON.parse(localStorage.getItem('letras')) || [];
-        letrasContainer.innerHTML = '';
-        letras.forEach(letra => {
-            const letraDiv = document.createElement('div');
-            letraDiv.className = 'letra-salva';
-            letraDiv.innerHTML = `
-                <div class="letra-titulo">${letra.titulo}</div>
-                <div class="letra-autor">por ${letra.nome}</div>
-                <div class="letra-conteudo">${letra.letra}</div>
-                ${isAdmin ? `<button class="delete-btn" onclick="deletarLetra(${letra.id})">Excluir</button>` : ''}
-            `;
-            letrasContainer.appendChild(letraDiv);
-        });
-        atualizarBotoesDelete();
-    }
-
-    // Chamar exibirLetras ao carregar a página
-    exibirLetras();
-});
-    </script>
+    <script src="script.js"></script>
+    <script src="https://unpkg.com/@supabase/supabase-js"></script>
 </body>
 </html>
