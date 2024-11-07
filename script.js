@@ -139,3 +139,4 @@ document.addEventListener('DOMContentLoaded', function() {
 
     exibirLetras();
 });
+console.log(typeof exibirLetras);
