@@ -84,28 +84,29 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     async function exibirLetras() {
-        const { data: letras, error } = await supabase
-            .from('letras')
-            .select('*');
+    const { data: letras, error } = await supabase
+        .from('letras')
+        .select('*');
 
-        if (error) {
-            alert('Erro ao carregar letras: ' + error.message);
-        } else {
-            letrasContainer.innerHTML = '';
-            letras.forEach(letra => {
-                const letraDiv = document.createElement('div');
-                letraDiv.className = 'letra-salva';
-                letraDiv.innerHTML = `
-                    <div class="letra-titulo">${letra.titulo}</div>
-                    <div class="letra-autor">por ${letra.nome}</div>
-                    <div class="letra-conteudo">${letra.letra}</div>
-                    ${isAdmin ? `<button class="delete-btn" onclick="deletarLetra('${letra.id}')">Excluir</button>` : ''}
-                `;
-                letrasContainer.appendChild(letraDiv);
-            });
-            atualizarBotoesDelete();
-        }
+    if (error) {
+        console.error('Erro ao carregar letras:', error.message);
+        alert('Erro ao carregar letras');
+    } else {
+        letrasContainer.innerHTML = '';
+        letras.forEach(letra => {
+            const letraDiv = document.createElement('div');
+            letraDiv.className = 'letra-salva';
+            letraDiv.innerHTML = `
+                <div class="letra-titulo">${letra.titulo}</div>
+                <div class="letra-autor">por ${letra.nome}</div>
+                <div class="letra-conteudo">${letra.letra}</div>
+                ${isAdmin ? `<button class="delete-btn" onclick="deletarLetra('${letra.id}')">Excluir</button>` : ''}
+            `;
+            letrasContainer.appendChild(letraDiv);
+        });
+        atualizarBotoesDelete();
     }
+}
 
     async function deletarLetra(id) {
         if (!isAdmin) return;
