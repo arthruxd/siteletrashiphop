@@ -52,6 +52,12 @@ async function enviarLetra(nome, titulo, letra) {
     }
 }
 
+function atualizarBotoesDelete() {
+    const deleteBtns = document.querySelectorAll('.delete-btn');
+    deleteBtns.forEach(btn => {
+        btn.style.display = isAdmin ? 'block' : 'none';
+    });
+}
 
 // Declare fora de outras funções para garantir que esteja no escopo global
 async function exibirLetras() {
@@ -171,27 +177,31 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(createNote, i * 200);
     }
 
-    loginButton.addEventListener('click', function() {
-        const username = prompt('Nome de Usuário:');
-        const password = prompt('Senha:');
+   loginButton.addEventListener('click', function() {
+    const username = prompt('Nome de Usuário:');
+    const password = prompt('Senha:');
 
-        if (username === 'equipe8' && password === 'admin') {
-            isAdmin = true;
-            showNotification('Login realizado com sucesso!');
-            logoutButton.style.display = 'block';
-            loginButton.style.display = 'none';
-            exibirLetras();
-        } else {
-            showNotification('Credenciais inválidas!');
-        }
-    });
-
-    logoutButton.addEventListener('click', function() {
-        isAdmin = false;
-        showNotification('Você saiu com sucesso.');
-        logoutButton.style.display = 'none';
-        loginButton.style.display = 'block';
+    if (username === 'equipe8' && password === 'admin') {
+        isAdmin = true;
+        showNotification('Login realizado com sucesso!');
+        logoutButton.style.display = 'block';
+        loginButton.style.display = 'none';
+        atualizarBotoesDelete(); // Exibe os botões de exclusão para administradores
         exibirLetras();
+    } else {
+        showNotification('Credenciais inválidas!');
+    }
+});
+
+logoutButton.addEventListener('click', function() {
+    isAdmin = false;
+    showNotification('Você saiu com sucesso.');
+    logoutButton.style.display = 'none';
+    loginButton.style.display = 'block';
+    atualizarBotoesDelete(); // Oculta os botões de exclusão para não-administradores
+    exibirLetras();
+});
+
     });
 document.getElementById('letraForm').addEventListener('submit', function(event) {
     event.preventDefault();
