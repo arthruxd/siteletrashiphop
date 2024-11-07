@@ -34,15 +34,12 @@ async function enviarLetra(nome, titulo, letra) {
 
 // Declare fora de outras funções para garantir que esteja no escopo global
 async function exibirLetras() {
-    const { data: letras, error } = await supabase
-        .from('letras')
-        .select('*');
+    const { data: letras, error } = await supabase.from('letras').select('*');
 
     if (error) {
         console.error('Erro ao carregar letras:', error.message);
         alert('Erro ao carregar letras');
     } else {
-        const letrasContainer = document.getElementById('letrasContainer');
         letrasContainer.innerHTML = '';
         letras.forEach(letra => {
             const letraDiv = document.createElement('div');
@@ -51,15 +48,18 @@ async function exibirLetras() {
                 <div class="letra-titulo">${letra.titulo}</div>
                 <div class="letra-autor">por ${letra.nome}</div>
                 <div class="letra-conteudo">${letra.letra}</div>
-                ${isAdmin ? `<button class="delete-btn">Excluir</button>` : ''}
             `;
-            letrasContainer.appendChild(letraDiv);
 
-            // Adicione o evento de exclusão ao botão de exclusão se o usuário for administrador
+            // Adiciona o botão de exclusão se for administrador
             if (isAdmin) {
-                const deleteBtn = letraDiv.querySelector('.delete-btn');
+                const deleteBtn = document.createElement('button');
+                deleteBtn.className = 'delete-btn';
+                deleteBtn.textContent = 'Excluir';
                 deleteBtn.addEventListener('click', () => deletarLetra(letra.id));
+                letraDiv.appendChild(deleteBtn);
             }
+
+            letrasContainer.appendChild(letraDiv);
         });
         atualizarBotoesDelete();
     }
