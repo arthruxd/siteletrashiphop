@@ -129,17 +129,25 @@ document.addEventListener('DOMContentLoaded', function() {
         loginButton.style.display = 'block';
         exibirLetras();
     });
+document.getElementById('letraForm').addEventListener('submit', function(event) {
+    event.preventDefault();
 
-    document.getElementById('letraForm').addEventListener('submit', function(event) {
-        event.preventDefault();
+    // Obtenha o token do hCaptcha
+    const hcaptchaResponse = hcaptcha.getResponse();
+    
+    // Verifique se o hCaptcha foi completado
+    if (!hcaptchaResponse) {
+        alert('Por favor, complete o hCaptcha.');
+        return;
+    }
 
-        const nome = document.getElementById('nome').value;
-        const titulo = document.getElementById('titulo').value;
-        const letra = document.getElementById('letra').value;
+    const nome = document.getElementById('nome').value;
+    const titulo = document.getElementById('titulo').value;
+    const letra = document.getElementById('letra').value;
 
-        enviarLetra(nome, titulo, letra);
-        this.reset();
-    });
-
-    exibirLetras();
+    enviarLetra(nome, titulo, letra);
+    this.reset();
+    hcaptcha.reset(); // Reseta o hCaptcha para permitir novo envio, se necessário
+});
+     exibirLetras();
 });
