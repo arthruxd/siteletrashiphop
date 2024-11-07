@@ -3,12 +3,14 @@ async function obterIP() {
     try {
         const response = await fetch('https://api.ipify.org?format=json');
         const data = await response.json();
+        console.log("IP obtido:", data.ip); // Adiciona log para verificar o IP
         return data.ip;
     } catch (error) {
         console.error("Erro ao obter o IP:", error);
         return null;
     }
 }
+
 
 // Create a single supabase client for interacting with your database
 const supabase = createClient('https://qjxdlwzugeurfkdrzaov.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFqeGRsd3p1Z2V1cmZrZHJ6YW92Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzA4OTY4NTAsImV4cCI6MjA0NjQ3Mjg1MH0.heeFBtzQwHSGHU88HMkeZftDG5IlltTFUBqq-DadTec')
@@ -51,6 +53,7 @@ async function enviarLetra(nome, titulo, letra) {
     }
 }
 
+
 // Declare fora de outras funções para garantir que esteja no escopo global
 async function exibirLetras() {
     const ipAtual = await obterIP(); // Obtenha o IP do usuário atual
@@ -75,6 +78,7 @@ async function exibirLetras() {
                 const editBtn = document.createElement('button');
                 editBtn.className = 'edit-btn';
                 editBtn.textContent = 'Editar';
+                // Chamando a função editarLetra ao clicar no botão
                 editBtn.addEventListener('click', () => editarLetra(letra));
                 letraDiv.appendChild(editBtn);
             }
@@ -89,18 +93,10 @@ async function exibirLetras() {
             }
 
             letrasContainer.appendChild(letraDiv);
-            // Adiciona o botão "Editar" se o IP do usuário coincidir com o IP armazenado
-            if (letra.ip === ipAtual) {
-                const editBtn = document.createElement('button');
-                editBtn.className = 'edit-btn';
-                editBtn.textContent = 'Editar';
-                editBtn.addEventListener('click', () => editarLetra(letra));
-                letraDiv.appendChild(editBtn);
-            }
-
         });
     }
 }
+
 // Função para iniciar a edição da letra
 function editarLetra(letra) {
     // Exibir prompts para o usuário editar os dados
