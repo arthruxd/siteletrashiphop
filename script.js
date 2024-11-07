@@ -1,16 +1,3 @@
-// PEGADOR DE IP, PARA INDENTIFICAÇÃO ÚNICA DE USUÁRIO
-async function obterIP() {
-    try {
-        const response = await fetch('https://api.ipify.org?format=json');
-        const data = await response.json();
-        console.log("IP obtido:", data.ip); // Adiciona log para verificar o IP
-        return data.ip;
-    } catch (error) {
-        console.error("Erro ao obter o IP:", error);
-        return null;
-    }
-}
-
 // Create a single supabase client for interacting with your database
 const supabase = createClient('https://qjxdlwzugeurfkdrzaov.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFqeGRsd3p1Z2V1cmZrZHJ6YW92Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzA4OTY4NTAsImV4cCI6MjA0NjQ3Mjg1MH0.heeFBtzQwHSGHU88HMkeZftDG5IlltTFUBqq-DadTec')
 import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
@@ -33,16 +20,9 @@ function atualizarBotoesDelete() {
 }
 
 async function enviarLetra(nome, titulo, letra) {
-    const ip = await obterIP(); // Obtenha o IP do usuário
-
-    if (!ip) {
-        alert("Não foi possível obter seu IP. Tente novamente.");
-        return;
-    }
-
     const { error } = await supabase
         .from('letras')
-        .insert([{ nome, titulo, letra, ip }]); // Inclui o IP no registro
+        .insert([{ nome, titulo, letra }]);
 
     if (error) {
         alert('Erro ao enviar letra: ' + error.message);
@@ -52,18 +32,8 @@ async function enviarLetra(nome, titulo, letra) {
     }
 }
 
-function atualizarBotoesDelete() {
-    const deleteBtns = document.querySelectorAll('.delete-btn');
-    deleteBtns.forEach(btn => {
-        btn.style.display = isAdmin ? 'block' : 'none';
-    });
-}
-
 // Declare fora de outras funções para garantir que esteja no escopo global
 async function exibirLetras() {
-    const ipAtual = await obterIP(); // Obtenha o IP do usuário atual
-    console.log("IP atual do usuário:", ipAtual); // Log para verificar o IP do usuário
-
     const { data: letras, error } = await supabase.from('letras').select('*');
 
     if (error) {
@@ -72,8 +42,6 @@ async function exibirLetras() {
     } else {
         letrasContainer.innerHTML = '';
         letras.forEach(letra => {
-            console.log(`IP da letra: ${letra.ip}, IP atual: ${ipAtual}, isAdmin: ${isAdmin}`); // Log para cada letra
-
             const letraDiv = document.createElement('div');
             letraDiv.className = 'letra-salva';
             letraDiv.innerHTML = `
@@ -82,76 +50,38 @@ async function exibirLetras() {
                 <div class="letra-conteudo">${letra.letra}</div>
             `;
 
-            // Adiciona o botão "Editar" se o IP do usuário coincidir com o IP armazenado
-            if (letra.ip === ipAtual) {
-                console.log("Adicionando botão de edição para a letra:", letra.titulo); // Log para verificar o botão de edição
-                const editBtn = document.createElement('button');
-                editBtn.className = 'edit-btn';
-                editBtn.textContent = 'Editar';
-                editBtn.addEventListener('click', () => editarLetra(letra));
-                letraDiv.appendChild(editBtn); // Adiciona o botão "Editar" dentro de letraDiv
-            }
-
-            // Adiciona o botão "Excluir" se o usuário for administrador
+            // Adiciona o botão de exclusão se for administrador
             if (isAdmin) {
-                console.log("Adicionando botão de exclusão para a letra:", letra.titulo); // Log para verificar o botão de exclusão
                 const deleteBtn = document.createElement('button');
                 deleteBtn.className = 'delete-btn';
                 deleteBtn.textContent = 'Excluir';
                 deleteBtn.addEventListener('click', () => deletarLetra(letra.id));
-                letraDiv.appendChild(deleteBtn); // Adiciona o botão "Excluir" dentro de letraDiv
+                letraDiv.appendChild(deleteBtn);
             }
 
-            letrasContainer.appendChild(letraDiv); // Adiciona cada letra com seus botões ao container principal
+            letrasContainer.appendChild(letraDiv);
         });
+        atualizarBotoesDelete();
     }
 }
 
 async function deletarLetra(id) {
-    if (!isAdmin) return; // Garante que apenas administradores podem excluir
+    if (!isAdmin) return;
 
-    if (confirm("Tem certeza que deseja excluir esta letra?")) {
+    if (confirm('Tem certeza que deseja excluir esta letra?')) {
         const { error } = await supabase
-            .from("letras")
+            .from('letras')
             .delete()
-            .eq("id", id);
+            .eq('id', id);
 
         if (error) {
-            alert("Erro ao excluir letra: " + error.message);
+            alert('Erro ao excluir letra: ' + error.message);
         } else {
-            alert("Letra excluída com sucesso!");
-            await exibirLetras(); // Recarrega a lista de letras após a exclusão
+            alert('Letra excluída com sucesso!');
+            await exibirLetras();
         }
     }
 }
-
-// Função para iniciar a edição da letra
-function editarLetra(letra) {
-    // Exibir prompts para o usuário editar os dados
-    const novoTitulo = prompt("Edite o título:", letra.titulo);
-    const novaLetra = prompt("Edite a letra:", letra.letra);
-
-    // Verifique se o usuário realmente inseriu novos valores
-    if (novoTitulo && novaLetra) {
-        atualizarLetra(letra.id, novoTitulo, novaLetra);
-    }
-}
-
-// Função para atualizar a letra no banco de dados
-async function atualizarLetra(id, titulo, letra) {
-    const { error } = await supabase
-        .from('letras')
-        .update({ titulo, letra })
-        .eq('id', id);
-
-    if (error) {
-        alert('Erro ao atualizar letra: ' + error.message);
-    } else {
-        alert('Letra atualizada com sucesso!');
-        await exibirLetras(); // Recarrega a lista de letras para mostrar a versão editada
-    }
-}
-
 
 function createNote() {
     const notes = ['♪', '♫', '♬', '♩'];
@@ -177,51 +107,39 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(createNote, i * 200);
     }
 
-   loginButton.addEventListener('click', function() {
-    const username = prompt('Nome de Usuário:');
-    const password = prompt('Senha:');
+    loginButton.addEventListener('click', function() {
+        const username = prompt('Nome de Usuário:');
+        const password = prompt('Senha:');
 
-    if (username === 'equipe8' && password === 'admin') {
-        isAdmin = true;
-        showNotification('Login realizado com sucesso!');
-        logoutButton.style.display = 'block';
-        loginButton.style.display = 'none';
-        atualizarBotoesDelete(); // Exibe os botões de exclusão para administradores
-        exibirLetras();
-    } else {
-        showNotification('Credenciais inválidas!');
-    }
-});
-
-logoutButton.addEventListener('click', function() {
-    isAdmin = false;
-    showNotification('Você saiu com sucesso.');
-    logoutButton.style.display = 'none';
-    loginButton.style.display = 'block';
-    atualizarBotoesDelete(); // Oculta os botões de exclusão para não-administradores
-    exibirLetras();
-});
-
+        if (username === 'equipe8' && password === 'admin') {
+            isAdmin = true;
+            showNotification('Login realizado com sucesso!');
+            logoutButton.style.display = 'block';
+            loginButton.style.display = 'none';
+            exibirLetras();
+        } else {
+            showNotification('Credenciais inválidas!');
+        }
     });
-document.getElementById('letraForm').addEventListener('submit', function(event) {
-    event.preventDefault();
 
-    // Obtenha o token do hCaptcha
-    const hcaptchaResponse = hcaptcha.getResponse();
-    
-    // Verifique se o hCaptcha foi completado
-    if (!hcaptchaResponse) {
-        alert('Por favor, complete o hCaptcha.');
-        return;
-    }
+    logoutButton.addEventListener('click', function() {
+        isAdmin = false;
+        showNotification('Você saiu com sucesso.');
+        logoutButton.style.display = 'none';
+        loginButton.style.display = 'block';
+        exibirLetras();
+    });
 
-    const nome = document.getElementById('nome').value;
-    const titulo = document.getElementById('titulo').value;
-    const letra = document.getElementById('letra').value;
+    document.getElementById('letraForm').addEventListener('submit', function(event) {
+        event.preventDefault();
 
-    enviarLetra(nome, titulo, letra);
-    this.reset();
-    hcaptcha.reset(); // Reseta o hCaptcha para permitir novo envio, se necessário
-});
-     exibirLetras();
+        const nome = document.getElementById('nome').value;
+        const titulo = document.getElementById('titulo').value;
+        const letra = document.getElementById('letra').value;
+
+        enviarLetra(nome, titulo, letra);
+        this.reset();
+    });
+
+    exibirLetras();
 });
