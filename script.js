@@ -102,22 +102,23 @@ async function exibirLetras() {
 }
 
 async function deletarLetra(id) {
-    if (!isAdmin) return;
+    if (!isAdmin) return; // Garante que apenas administradores podem excluir
 
-    if (confirm('Tem certeza que deseja excluir esta letra?')) {
+    if (confirm("Tem certeza que deseja excluir esta letra?")) {
         const { error } = await supabase
-            .from('letras')
+            .from("letras")
             .delete()
-            .eq('id', id);
+            .eq("id", id);
 
         if (error) {
-            alert('Erro ao excluir letra: ' + error.message);
+            alert("Erro ao excluir letra: " + error.message);
         } else {
-            alert('Letra excluída com sucesso!');
-            await exibirLetras();
+            alert("Letra excluída com sucesso!");
+            await exibirLetras(); // Recarrega a lista de letras após a exclusão
         }
     }
 }
+
 // Função para iniciar a edição da letra
 function editarLetra(letra) {
     // Exibir prompts para o usuário editar os dados
