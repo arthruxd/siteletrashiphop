@@ -75,11 +75,11 @@ async function exibirLetras() {
             // Adiciona o botão "Editar" se o IP do usuário coincidir com o IP armazenado
             if (letra.ip === ipAtual) {
                 const editBtn = document.createElement('button');
-                editBtn.className = 'edit-btn'; // Certifique-se de que essa classe está definida
+                editBtn.className = 'edit-btn';
                 editBtn.textContent = 'Editar';
+                // Chama a função editarLetra ao clicar no botão
                 editBtn.addEventListener('click', () => editarLetra(letra));
-                letraDiv.appendChild(editBtn);
-
+                letraDiv.appendChild(editBtn); // Adiciona o botão "Editar" dentro de letraDiv
             }
 
             // Adiciona o botão "Excluir" se o usuário for administrador
@@ -88,10 +88,10 @@ async function exibirLetras() {
                 deleteBtn.className = 'delete-btn';
                 deleteBtn.textContent = 'Excluir';
                 deleteBtn.addEventListener('click', () => deletarLetra(letra.id));
-                letraDiv.appendChild(deleteBtn);
+                letraDiv.appendChild(deleteBtn); // Adiciona o botão "Excluir" dentro de letraDiv
             }
 
-            letrasContainer.appendChild(letraDiv);
+            letrasContainer.appendChild(letraDiv); // Adiciona cada letra com seus botões ao container principal
         });
     }
 }
