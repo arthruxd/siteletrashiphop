@@ -34,7 +34,9 @@ async function enviarLetra(nome, titulo, letra) {
 
 // Declare fora de outras funções para garantir que esteja no escopo global
 async function exibirLetras() {
-    const { data: letras, error } = await supabase.from('letras').select('*');
+    const { data: letras, error } = await supabase
+        .from('letras')
+        .select('*');
 
     if (error) {
         console.error('Erro ao carregar letras:', error.message);
@@ -49,9 +51,15 @@ async function exibirLetras() {
                 <div class="letra-titulo">${letra.titulo}</div>
                 <div class="letra-autor">por ${letra.nome}</div>
                 <div class="letra-conteudo">${letra.letra}</div>
-                ${isAdmin ? `<button class="delete-btn" onclick="deletarLetra('${letra.id}')">Excluir</button>` : ''}
+                ${isAdmin ? `<button class="delete-btn">Excluir</button>` : ''}
             `;
             letrasContainer.appendChild(letraDiv);
+
+            // Adicione o evento de exclusão ao botão de exclusão se o usuário for administrador
+            if (isAdmin) {
+                const deleteBtn = letraDiv.querySelector('.delete-btn');
+                deleteBtn.addEventListener('click', () => deletarLetra(letra.id));
+            }
         });
         atualizarBotoesDelete();
     }
