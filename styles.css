@@ -301,17 +301,3 @@
                 font-size: 1rem;
             }
         }
-        
-        .edit-btn {
-            background-color: #4CAF50; /* Cor de fundo verde */
-            color: white; /* Cor do texto */
-            padding: 10px 15px; /* Espaçamento interno */
-            border: none; /* Sem borda */
-            border-radius: 5px; /* Bordas arredondadas */
-            cursor: pointer; /* Cursor de ponteiro ao passar o mouse */
-            transition: background-color 0.3s; /* Transição suave para a cor de fundo */
-        }
-        
-        .edit-btn:hover {
-            background-color: #45a049; /* Cor de fundo ao passar o mouse */
-        }
