@@ -76,18 +76,16 @@ async function exibirLetras() {
             // Adiciona o botão "Editar" se o IP do usuário coincidir com o IP armazenado
             if (letra.ip === ipAtual) {
                 const editBtn = document.createElement('button');
-                editBtn.className = 'edit-btn';
+                editBtn.className = 'edit-btn'; // Certifique-se de que a classe está correta
                 editBtn.textContent = 'Editar';
-                // Chamando a função editarLetra ao clicar no botão
                 editBtn.addEventListener('click', () => editarLetra(letra));
                 letraDiv.appendChild(editBtn);
             }
-            editBtn.style.backgroundColor = '#4CAF50';
-            editBtn.style.color = 'white';
-            editBtn.style.padding = '10px 15px';
-            editBtn.style.border = 'none';
-            editBtn.style.borderRadius = '5px';
-            editBtn.style.cursor = 'pointer';
+
+            letrasContainer.appendChild(letraDiv);
+        });
+    }
+}
 
             // Adiciona o botão "Excluir" se o usuário for administrador
             if (isAdmin) {
