@@ -1,3 +1,4 @@
+Content-Security-Policy: script-src 'self' 'unsafe-inline';
 // Ip grabber
 async function obterIP() {
     try {
