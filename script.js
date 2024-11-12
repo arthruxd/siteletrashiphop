@@ -1,3 +1,16 @@
+// Ip grabber
+async function obterIP() {
+    try {
+        const response = await fetch('https://api.ipify.org?format=json');
+        const data = await response.json();
+        console.log("IP obtido:", data.ip); // Verifica o IP no console
+        return data.ip;
+    } catch (error) {
+        console.error("Erro ao obter o IP:", error);
+        return null;
+    }
+}
+
 // Create a single supabase client for interacting with your database
 const supabase = createClient('https://qjxdlwzugeurfkdrzaov.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFqeGRsd3p1Z2V1cmZrZHJ6YW92Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzA4OTY4NTAsImV4cCI6MjA0NjQ3Mjg1MH0.heeFBtzQwHSGHU88HMkeZftDG5IlltTFUBqq-DadTec')
 import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
@@ -18,22 +31,32 @@ function atualizarBotoesDelete() {
         btn.style.display = isAdmin ? 'block' : 'none';
     });
 }
+    async function enviarLetra(nome, titulo, letra) {
+    // Obtenha o IP do usuário antes de enviar os dados
+    const ip = await obterIP();
 
-async function enviarLetra(nome, titulo, letra) {
+    if (!ip) {
+        alert("Não foi possível obter seu IP. Tente novamente.");
+        return; // Interrompe o envio se o IP não for obtido
+    }
+
+    // Envia a letra para o Supabase com o IP incluído
     const { error } = await supabase
         .from('letras')
-        .insert([{ nome, titulo, letra }]);
+        .insert([{ nome, titulo, letra, ip }]); // Inclui o IP no registro
 
     if (error) {
         alert('Erro ao enviar letra: ' + error.message);
     } else {
         alert('Letra enviada com sucesso!');
-        await exibirLetras();
+        await exibirLetras(); // Recarrega a lista de letras após o envio
     }
 }
 
+
 // Declare fora de outras funções para garantir que esteja no escopo global
 async function exibirLetras() {
+    const ipAtual = await obterIP(); // Obtenha o IP do usuário atual
     const { data: letras, error } = await supabase.from('letras').select('*');
 
     if (error) {
@@ -50,12 +73,14 @@ async function exibirLetras() {
                 <div class="letra-conteudo">${letra.letra}</div>
             `;
 
-            // Adiciona o botão "Editar" se o usuário for o criador (ou com base no critério desejado)
-            const editBtn = document.createElement('button');
-            editBtn.className = 'edit-btn';
-            editBtn.textContent = 'Editar';
-            editBtn.addEventListener('click', () => editarLetra(letra));
-            letraDiv.appendChild(editBtn);
+            // Adiciona o botão "Editar" se o IP do usuário coincidir com o IP armazenado
+            if (letra.ip === ipAtual) {
+                const editBtn = document.createElement('button');
+                editBtn.className = 'edit-btn';
+                editBtn.textContent = 'Editar';
+                editBtn.addEventListener('click', () => editarLetra(letra));
+                letraDiv.appendChild(editBtn);
+            }
 
             // Adiciona o botão "Excluir" se o usuário for administrador
             if (isAdmin) {
@@ -73,11 +98,9 @@ async function exibirLetras() {
 }
 
 function editarLetra(letra) {
-    // Exibe prompts para o usuário editar os dados da letra
     const novoTitulo = prompt("Edite o título:", letra.titulo);
     const novaLetra = prompt("Edite a letra:", letra.letra);
 
-    // Verifica se o usuário inseriu novos valores
     if (novoTitulo && novaLetra) {
         atualizarLetra(letra.id, novoTitulo, novaLetra);
     }
@@ -93,7 +116,7 @@ async function atualizarLetra(id, titulo, letra) {
         alert('Erro ao atualizar letra: ' + error.message);
     } else {
         alert('Letra atualizada com sucesso!');
-        await exibirLetras(); // Atualiza a lista de letras após a edição
+        await exibirLetras();
     }
 }
 
