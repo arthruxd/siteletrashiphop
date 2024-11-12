@@ -50,7 +50,14 @@ async function exibirLetras() {
                 <div class="letra-conteudo">${letra.letra}</div>
             `;
 
-            // Adiciona o botão de exclusão se for administrador
+            // Adiciona o botão "Editar" se o usuário for o criador (ou com base no critério desejado)
+            const editBtn = document.createElement('button');
+            editBtn.className = 'edit-btn';
+            editBtn.textContent = 'Editar';
+            editBtn.addEventListener('click', () => editarLetra(letra));
+            letraDiv.appendChild(editBtn);
+
+            // Adiciona o botão "Excluir" se o usuário for administrador
             if (isAdmin) {
                 const deleteBtn = document.createElement('button');
                 deleteBtn.className = 'delete-btn';
@@ -64,6 +71,32 @@ async function exibirLetras() {
         atualizarBotoesDelete();
     }
 }
+
+function editarLetra(letra) {
+    // Exibe prompts para o usuário editar os dados da letra
+    const novoTitulo = prompt("Edite o título:", letra.titulo);
+    const novaLetra = prompt("Edite a letra:", letra.letra);
+
+    // Verifica se o usuário inseriu novos valores
+    if (novoTitulo && novaLetra) {
+        atualizarLetra(letra.id, novoTitulo, novaLetra);
+    }
+}
+
+async function atualizarLetra(id, titulo, letra) {
+    const { error } = await supabase
+        .from('letras')
+        .update({ titulo, letra })
+        .eq('id', id);
+
+    if (error) {
+        alert('Erro ao atualizar letra: ' + error.message);
+    } else {
+        alert('Letra atualizada com sucesso!');
+        await exibirLetras(); // Atualiza a lista de letras após a edição
+    }
+}
+
 
 async function deletarLetra(id) {
     if (!isAdmin) return;
