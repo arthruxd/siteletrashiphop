@@ -82,6 +82,12 @@ async function exibirLetras() {
                 editBtn.addEventListener('click', () => editarLetra(letra));
                 letraDiv.appendChild(editBtn);
             }
+            editBtn.style.backgroundColor = '#4CAF50';
+            editBtn.style.color = 'white';
+            editBtn.style.padding = '10px 15px';
+            editBtn.style.border = 'none';
+            editBtn.style.borderRadius = '5px';
+            editBtn.style.cursor = 'pointer';
 
             // Adiciona o botão "Excluir" se o usuário for administrador
             if (isAdmin) {
