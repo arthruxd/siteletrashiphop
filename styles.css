@@ -301,9 +301,9 @@
                 font-size: 1rem;
             }
         }
-             .edit-btn {
-            background-color: #4CAF50;
-            color: white;
+            .edit-btn {
+            background-color: #FFD700; /* Cor de fundo amarelo */
+            color: #222; /* Cor do texto escura para contraste */
             border: none;
             padding: 8px 16px;
             font-size: 14px;
@@ -315,10 +315,10 @@
         }
         
         .edit-btn:hover {
-            background-color: #45a049;
+            background-color: #FFC107; /* Amarelo mais escuro para o hover */
         }
-        
-        /* Ajuste para garantir que o botão não sobreponha o conteúdo */
+
+         /* Ajuste para garantir que o botão não sobreponha o conteúdo */
         .letra-salva {
             position: relative;
             padding-bottom: 20px; /* Espaço extra para os botões */
