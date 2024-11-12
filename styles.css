@@ -301,7 +301,7 @@
                 font-size: 1rem;
             }
         }
-                .edit-btn {
+             .edit-btn {
             background-color: #4CAF50;
             color: white;
             border: none;
@@ -309,11 +309,26 @@
             font-size: 14px;
             border-radius: 4px;
             cursor: pointer;
-            margin-top: 5px;
+            margin-top: 10px; /* Distância do conteúdo acima */
+            display: inline-block;
             transition: background-color 0.3s;
         }
         
         .edit-btn:hover {
             background-color: #45a049;
         }
-
+        
+        /* Ajuste para garantir que o botão não sobreponha o conteúdo */
+        .letra-salva {
+            position: relative;
+            padding-bottom: 20px; /* Espaço extra para os botões */
+        }
+        
+        .letra-titulo,
+        .letra-autor,
+        .letra-conteudo {
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        
