@@ -301,3 +301,22 @@
                 font-size: 1rem;
             }
         }
+        .edit-btn {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: rgba(0, 128, 0, 0.8); /* Verde para o botão de edição */
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .edit-btn:hover {
+            background: rgba(0, 128, 0, 1);
+            transform: scale(1.05);
+        }
