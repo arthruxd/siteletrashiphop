@@ -3,53 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Envie Suas Letras de Hip Hop</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
+    <title>Página Inicial - Projeto Hip Hop</title>
+    <link rel="stylesheet" href="index.css"> <!-- Referência ao CSS da página inicial -->
 </head>
 <body>
-    <div class="music-notes" id="musicNotes"></div>
     <div class="container">
-        <div class="auth-buttons">
-            <button id="loginButton" aria-label="Login como administrador">Admin Login</button>
-            <button id="logoutButton" aria-label="Sair">Logout</button>
-        </div>
-
-        <h1>Envie Sua Letra de Hip Hop</h1>
-        <p>Compartilhe sua letra de hip hop em nosso site! Escreva abaixo:</p>
-        
-        <form id="letraForm" aria-label="Formulário para envio de letras">
-            <div class="form-group">
-                <label for="nome">Seu Nome:</label>
-                <input type="text" id="nome" name="nome" required maxlength="50" aria-required="true">
-            </div>
-            
-            <div class="form-group">
-                <label for="titulo">Título da Letra:</label>
-                <input type="text" id="titulo" name="titulo" required maxlength="100" aria-required="true">
-            </div>
-
-            <div class="form-group">
-                <label for="letra">Sua Letra:</label>
-                <textarea id="letra" name="letra" required minlength="10" maxlength="5000" rows="10" aria-required="true"></textarea>
-            </div>
-            <div class="h-captcha" data-sitekey="3f0a7ad2-464a-4f3c-a496-b92e13925016"></div>
-            <button type="submit" class="btn">Enviar Letra</button>
-        </form>
-
-        <div id="letrasSalvas">
-            <h2>Letras Enviadas</h2>
-            <div id="letrasContainer"></div>
-        </div>
-
-        <div class="footer">
-            <p>Desenvolvido por <strong>Equipe 8</strong></p>
-            <p>Arthur Fidelis, Guilherme Luck, Nicolas Magalhães e Rodrigo Tutume</p>
-        </div>
+        <header>
+            <h1>Bem-vindo ao Projeto de Letras de Hip Hop</h1>
+        </header>
+        <main>
+            <p>
+                Este é um projeto para compartilhar e enviar letras de Hip Hop. Crie suas composições,
+                compartilhe com a comunidade e veja o trabalho de outros artistas!
+            </p>
+            <button id="redirectButton" class="btn">
+                Enviar Letras de Hip Hop
+            </button>
+        </main>
+        <footer>
+            <p>Desenvolvido por [Seu Nome ou Equipe]</p>
+        </footer>
     </div>
-    <!-- Carregar o script como módulo -->
-    <script type="module" src="script.js"></script>
+    <script src="index.js"></script> <!-- Referência ao JavaScript da página inicial -->
 </body>
 </html>
