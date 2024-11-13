@@ -209,22 +209,3 @@ section {
     text-align: center;
     margin: 20px 0;
 }
-.impactos-hip-hop-moda {
-    margin: 40px 0; /* Espaçamento acima e abaixo da seção */
-    padding: 20px; /* Espaçamento interno */
-    background-color: rgba(30, 49, 99, 0.9); /* Azul escuro com transparência */
-    border-radius: 8px; /* Bordas arredondadas */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra para dar profundidade */
-}
-
-.impacto-item {
-    margin-bottom: 20px; /* Espaçamento entre os itens */
-}
-
-.impacto-item h3 {
-    color: var(--primary-color); /* Usando a cor primária definida */
-}
-
-.impacto-item p {
-    color: var(--text-light); /* Usando a cor de texto clara definida */
-}
