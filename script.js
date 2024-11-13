@@ -26,3 +26,22 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     createParticles();
 });
+function createNotes() {
+    const container = document.querySelector('.background-notes');
+
+    const notes = ['♪', '♫', '♬', '♩']; // Notas musicais
+    for (let i = 0; i < 30; i++) { // Número de notas a serem criadas
+        const note = document.createElement('div');
+        note.classList.add('note');
+        note.innerText = notes[Math.floor(Math.random() * notes.length)];
+
+        // Posiciona a nota em um lugar aleatório na tela
+        note.style.left = `${Math.random() * 100}vw`;
+        note.style.animationDuration = `${Math.random() * 5 + 5}s`; // Duração aleatória da animação
+
+        container.appendChild(note);
+    }
+}
+
+// Chama a função para criar as notas
+createNotes();
