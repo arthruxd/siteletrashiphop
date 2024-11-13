@@ -1,5 +1,4 @@
-// Redireciona para a página de envio de letras ao clicar no botão
+// Redireciona para a página de letras de hip-hop
 document.getElementById('redirectButton').addEventListener('click', function() {
-    window.location.href = '/letras/letrashiphop.html';
+    window.location.href = 'letras/letrashiphop.html'; // Caminho relativo para a página de letras
 });
-
