@@ -212,7 +212,7 @@ section {
 .impactos-hip-hop-moda {
     margin: 40px 0; /* Espaçamento acima e abaixo da seção */
     padding: 20px; /* Espaçamento interno */
-    background-color: rgba(255, 255, 255, 0.1); /* Cor de fundo com transparência */
+    background-color: rgba(30, 49, 99, 0.9); /* Azul escuro com transparência */
     border-radius: 8px; /* Bordas arredondadas */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra para dar profundidade */
 }
