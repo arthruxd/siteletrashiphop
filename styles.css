@@ -227,3 +227,17 @@ section {
 .impacto-item p {
     color: #555; /* Cor do texto */
 }
+.impactos-hip-hop-moda {
+    margin: 40px 0; /* Espaçamento acima e abaixo da seção */
+    padding: 20px; /* Espaçamento interno */
+    background-color: #e0e0e0; /* Cor de fundo cinza claro */
+    border-radius: 8px; /* Bordas arredondadas */
+}
+
+.impacto-item h3 {
+    color: #333; /* Cor do título */
+}
+
+.impacto-item p {
+    color: #333; /* Cor do texto */
+}
