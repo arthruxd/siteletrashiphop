@@ -1,102 +1,57 @@
-/* Estilos para a página inicial do projeto Letras de Hip Hop */
+/* styles.css */
 
 body {
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f9f9f9;
-    color: #333;
+    background-color: #007BFF; /* Azul */
+    color: #FFD700; /* Amarelo */
+    transition: background-color 0.5s;
 }
 
 header {
-    background-color: #FFD700;
-    color: #222;
+    background-color: #0056b3; /* Azul mais escuro */
+    color: #FFD700; /* Amarelo */
     padding: 20px;
     text-align: center;
-    border-bottom: 5px solid #FFC107;
 }
 
-header h1 {
+h1 {
     margin: 0;
     font-size: 2.5em;
-    font-weight: bold;
+}
+
+button {
+    background-color: #FFD700; /* Amarelo */
+    color: #0056b3; /* Azul escuro */
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #FFC107; /* Amarelo mais claro */
 }
 
 main {
     padding: 20px;
-    max-width: 800px;
-    margin: 0 auto;
-    line-height: 1.6;
+    text-align: center;
 }
 
-main section {
-    margin-bottom: 30px;
-    padding: 15px;
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-h2 {
-    color: #FFD700;
-    font-size: 1.8em;
-    margin-bottom: 10px;
-}
-
-p, li {
-    font-size: 1.1em;
-    margin-bottom: 10px;
-}
-
-ul {
-    list-style-type: disc;
-    margin-left: 20px;
+.intro {
+    margin: 20px 0;
+    font-size: 1.2em;
 }
 
 footer {
+    background-color: #0056b3; /* Azul mais escuro */
+    color: #FFD700; /* Amarelo */
     text-align: center;
-    background-color: #FFD700;
     padding: 10px;
-    color: #222;
-    border-top: 5px solid #FFC107;
-}
-
-footer p {
-    margin: 5px 0;
-}
-
-/* Estilo para o botão */
-.btn {
-    display: inline-block;
-    background-color: #FFD700;
-    color: #222;
-    font-weight: bold;
-    padding: 10px 20px;
-    text-transform: uppercase;
-    text-align: center;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1em;
-    transition: background-color 0.3s;
-}
-
-.btn:hover {
-    background-color: #FFC107;
-}
-
-/* Ajustes responsivos */
-@media (max-width: 768px) {
-    header h1 {
-        font-size: 2em;
-    }
-
-    main {
-        padding: 10px;
-    }
-
-    .btn {
-        font-size: 0.9em;
-        padding: 8px 16px;
-    }
+    position: relative;
+    bottom: 0;
+    width: 100%;
 }
