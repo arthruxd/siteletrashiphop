@@ -209,3 +209,29 @@ section {
     text-align: center;
     margin: 20px 0;
 }
+.background-notes {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Para que não interfira na interação do usuário */
+    overflow: hidden; /* Para garantir que as notas não saiam da tela */
+    z-index: -1; /* Para ficar atrás do conteúdo */
+}
+
+.note {
+    position: absolute;
+    font-size: 24px; /* Tamanho da nota */
+    color: rgba(255, 215, 0, 0.7); /* Cor da nota */
+    animation: float 10s linear infinite; /* Animação */
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(100vh);
+    }
+    100% {
+        transform: translateY(-10vh);
+    }
+}
