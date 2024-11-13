@@ -1,57 +1,116 @@
-/* styles.css */
-
-body {
-    font-family: 'Arial', sans-serif;
+/* Reset de Margens e Padding */
+* {
     margin: 0;
     padding: 0;
-    background-color: #007BFF; /* Azul */
-    color: #FFD700; /* Amarelo */
-    transition: background-color 0.5s;
+    box-sizing: border-box;
 }
 
+/* Estilo do Body */
+body {
+    background: linear-gradient(-45deg, #007BFF, #0056b3);
+    color: #FFD700; /* Amarelo */
+    font-family: 'Inter', sans-serif;
+    padding: 2rem;
+    min-height: 100vh;
+    text-align: center;
+}
+
+/* Estilo do Cabeçalho */
 header {
     background-color: #0056b3; /* Azul mais escuro */
-    color: #FFD700; /* Amarelo */
     padding: 20px;
-    text-align: center;
+    border-radius: 10px;
+    margin-bottom: 2rem;
 }
 
 h1 {
-    margin: 0;
-    font-size: 2.5em;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: 2.5rem;
+    color: #FFD700;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-button {
-    background-color: #FFD700; /* Amarelo */
-    color: #0056b3; /* Azul escuro */
+/* Estilo das Seções */
+section {
+    background-color: rgba(26, 32, 44, 0.9);
+    border-radius: 15px;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    animation: slideIn 0.5s ease-out;
+}
+
+/* Títulos das Seções */
+h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.8rem;
+    color: #FFD700;
+    margin-bottom: 1rem;
+}
+
+/* Estilo dos Parágrafos */
+p {
+    font-size: 1.1rem;
+    color: #fff;
+    line-height: 1.6;
+}
+
+/* Estilo da Lista */
+ul {
+    list-style-type: none; /* Remove os marcadores da lista */
+    padding-left: 0; /* Remove o padding padrão */
+    text-align: left; /* Alinha o texto à esquerda */
+}
+
+li {
+    margin-bottom: 0.5rem; /* Espaçamento entre os itens da lista */
+    color: #FFD700; /* Amarelo para os itens da lista */
+}
+
+/* Estilo do Botão */
+.btn {
+    background: linear-gradient(45deg, #FFD700, #FFA500);
+    color: #222;
     border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    font-size: 1em;
+    padding: 1rem 2rem;
+    border-radius: 12px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    font-size: 1.1rem;
+    font-weight: 600;
+    font-family: 'Montserrat', sans-serif;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
 }
 
-button:hover {
-    background-color: #FFC107; /* Amarelo mais claro */
+.btn:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
 }
 
-main {
-    padding: 20px;
-    text-align: center;
-}
-
-.intro {
-    margin: 20px 0;
-    font-size: 1.2em;
-}
-
+/* Estilo do Rodapé */
 footer {
-    background-color: #0056b3; /* Azul mais escuro */
-    color: #FFD700; /* Amarelo */
-    text-align: center;
-    padding: 10px;
-    position: relative;
-    bottom: 0;
-    width: 100%;
+    margin-top: 3rem;
+    padding: 1.5rem;
+    background-color: rgba(26, 32, 44, 0.8);
+    border-radius: 15px;
+    color: #ccc;
+    font-family: 'Inter', sans-serif;
+}
+
+footer strong {
+    color: #FFD700;
+    font-weight: 600;
+}
+
+/* Animações */
+@keyframes slideIn {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
