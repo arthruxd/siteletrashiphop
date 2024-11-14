@@ -224,7 +224,7 @@ section {
     position: absolute;
     font-size: 24px; /* Tamanho da nota */
     color: rgba(255, 215, 0, 0.7); /* Cor da nota */
-    animation: float 10s linear infinite; /* Animação */
+    animation: float 17s linear infinite; /* Animação */
 }
 
 @keyframes float {
