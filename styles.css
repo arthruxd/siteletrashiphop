@@ -258,3 +258,8 @@ form input::placeholder, form textarea::placeholder {
 form button {
     align-self: flex-end;
 }
+.imagem-grafite {
+    max-width: 100%; /* A imagem não deve exceder a largura do contêiner */
+    height: auto; /* Mantém a proporção da imagem */
+    border-radius: 10px; /* Adiciona bordas arredondadas, se desejado */
+}
