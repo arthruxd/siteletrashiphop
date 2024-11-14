@@ -273,12 +273,12 @@ form button {
     background: rgba(26, 32, 44, 0.9);
     border-radius: 15px;
     margin-bottom: 2rem;
+    text-align: center; /* Centraliza o conteúdo da linha do tempo */
 }
 
 .timeline h2 {
-    margin-bottom: 20px; /* Espaço abaixo do título */
-    color: var(--primary-color); /* Cor do título */
-    text-align: left; /* Alinha o título à esquerda */
+    margin-bottom: 20px; /* Adiciona um espaço abaixo do título */
+    color: var(--primary-color); /* Define a cor do título */
 }
 
 .timeline-container {
@@ -314,24 +314,17 @@ form button {
     transform: translateY(-5px);
 }
 
-/* Linha vertical da linha do tempo */
+/* Remover a linha amarela acima dos textos */
 .timeline-item::before {
-    content: '';
-    position: absolute;
-    left: 50%;
-    top: 0;
-    height: 100%;
-    width: 2px;
-    background: var(--primary-color);
-    transform: translateX(-50%);
-    z-index: -1;
+    content: none; /* Remove a linha amarela */
+}
+.timeline-content {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
-/* Ajuste para a linha do tempo */
-.timeline-item:nth-child(odd) .timeline-content {
-    margin-left: 20px; /* Para itens ímpares, desloca para a direita */
-}
-
-.timeline-item:nth-child(even) .timeline-content {
-    margin-right: 20px; /* Para itens pares, desloca para a esquerda */
+.timeline-content.active {
+    opacity: 1;
+    transform: translateY(0);
 }
