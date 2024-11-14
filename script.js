@@ -45,3 +45,21 @@ function createNotes() {
 
 // Chama a função para criar as notas
 createNotes();
+// Linha do tempo, foda
+document.addEventListener('DOMContentLoaded', () => {
+    const timelineItems = document.querySelectorAll('.timeline-item');
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.querySelector('.timeline-content').classList.add('active');
+            } else {
+                entry.target.querySelector('.timeline-content').classList.remove('active');
+            }
+        });
+    });
+
+    timelineItems.forEach(item => {
+        observer.observe(item);
+    });
+});
