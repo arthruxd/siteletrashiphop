@@ -211,20 +211,9 @@ section {
     100% { transform: translateY(0) rotate(360deg); }
 }
 .video-container {
-    position: relative;
-    padding-bottom: 56.25%; /* Altura baseada na proporção 16:9 */
-    height: 0;
-    overflow: hidden;
+    text-align: center;
+    margin: 20px 0;
 }
-
-.video-container iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
-
 .background-notes {
     position: fixed;
     top: 0;
