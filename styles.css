@@ -221,7 +221,7 @@ section {
     pointer-events: none; /* Para que não interfira na interação do usuário */
     overflow: hidden; /* Para garantir que as notas não saiam da tela */
     z-index: -1; /* Para ficar atrás do conteúdo */
-    filter: blur(4px); /* Blur */
+    filter: blur(1px); /* Blur */
 }
 
 .note {
