@@ -42,12 +42,12 @@ header {
 h1 {
     font-size: 3rem;
     font-weight: 700;
-    color: var(--primary-color);
-    text-shadow: 0 0 10px rgba(255, 215, 0, 0.8), 0 0 20px rgba(255, 215, 0, 0.6); /* Efeito de luz */
+    color: transparent; /* Define a cor do texto como transparente */
+    background-clip: text; /* Aplica o gradiente ao texto */
+    -webkit-background-clip: text; /* Suporte para browsers mais antigos */
+    -webkit-text-fill-color: transparent; /* Suporte para browsers mais antigos */
+    background: linear-gradient(45deg, var(--primary-color), #FFA500); /* Gradiente */
     letter-spacing: -1px;
-    background: linear-gradient(45deg, var(--primary-color), #FFA500);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
 }
 
 main {
@@ -72,11 +72,14 @@ section:hover {
 
 h2 {
     font-size: 2rem;
-    color: var(--primary-color);
+    color: transparent; /* Define a cor do texto como transparente */
+    background-clip: text; /* Aplica o gradiente ao texto */
+    -webkit-background-clip: text; /* Suporte para browsers mais antigos */
+    -webkit-text-fill-color: transparent; /* Suporte para browsers mais antigos */
+    background: linear-gradient(45deg, var(--primary-color), #FFA500); /* Gradiente */
     margin-bottom: 1.5rem;
     position: relative;
     padding-bottom: 0.5rem;
-    text-shadow: 0 0 8px rgba(255, 215, 0, 0.8), 0 0 15px rgba(255, 215, 0, 0.4); /* Efeito de luz */
 }
 h2::after {
     content: '';
@@ -218,7 +221,7 @@ section {
     pointer-events: none; /* Para que não interfira na interação do usuário */
     overflow: hidden; /* Para garantir que as notas não saiam da tela */
     z-index: -1; /* Para ficar atrás do conteúdo */
-    filter: blur(8px); /* Blur */
+    filter: blur(4px); /* Blur */
 }
 
 .note {
