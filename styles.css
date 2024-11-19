@@ -43,10 +43,10 @@ h1 {
     font-size: 3rem;
     font-weight: 700;
     color: transparent; /* Define a cor do texto como transparente */
+    background: linear-gradient(45deg, var(--primary-color), #FFA500); /* Gradiente */
     background-clip: text; /* Aplica o gradiente ao texto */
     -webkit-background-clip: text; /* Suporte para browsers mais antigos */
     -webkit-text-fill-color: transparent; /* Suporte para browsers mais antigos */
-    background: linear-gradient(45deg, var(--primary-color), #FFA500); /* Gradiente */
     letter-spacing: -1px;
 }
 
@@ -73,10 +73,10 @@ section:hover {
 h2 {
     font-size: 2rem;
     color: transparent; /* Define a cor do texto como transparente */
+    background: linear-gradient(45deg, var(--primary-color), #FFA500); /* Gradiente */
     background-clip: text; /* Aplica o gradiente ao texto */
     -webkit-background-clip: text; /* Suporte para browsers mais antigos */
     -webkit-text-fill-color: transparent; /* Suporte para browsers mais antigos */
-    background: linear-gradient(45deg, var(--primary-color), #FFA500); /* Gradiente */
     margin-bottom: 1.5rem;
     position: relative;
     padding-bottom: 0.5rem;
