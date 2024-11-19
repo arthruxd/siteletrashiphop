@@ -43,7 +43,7 @@ h1 {
     font-size: 3rem;
     font-weight: 700;
     color: var(--primary-color);
-    text-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.8), 0 0 20px rgba(255, 215, 0, 0.6); /* Efeito de luz */
     letter-spacing: -1px;
     background: linear-gradient(45deg, var(--primary-color), #FFA500);
     -webkit-background-clip: text;
@@ -76,8 +76,8 @@ h2 {
     margin-bottom: 1.5rem;
     position: relative;
     padding-bottom: 0.5rem;
+    text-shadow: 0 0 8px rgba(255, 215, 0, 0.8), 0 0 15px rgba(255, 215, 0, 0.4); /* Efeito de luz */
 }
-
 h2::after {
     content: '';
     position: absolute;
@@ -218,6 +218,7 @@ section {
     pointer-events: none; /* Para que não interfira na interação do usuário */
     overflow: hidden; /* Para garantir que as notas não saiam da tela */
     z-index: -1; /* Para ficar atrás do conteúdo */
+    filter: blur(8px); /* Blur */
 }
 
 .note {
