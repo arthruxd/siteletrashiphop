@@ -334,3 +334,7 @@ form button {
     opacity: 1;
     transform: translateY(0);
 }
+.audio-container { 
+    text-align: center;
+    margin: 20px 0;
+} 
