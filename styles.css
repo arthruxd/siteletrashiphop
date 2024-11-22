@@ -393,3 +393,8 @@ form button {
     border-radius: 50%;
     cursor: pointer;
 }
+
+.custom-audio-player label {
+    margin-left: 10px; /* Adiciona espaço à esquerda do texto "Volume" */
+    color: var(--text-light); /* Define a cor do texto, se necessário */
+}
