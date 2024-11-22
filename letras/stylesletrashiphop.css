@@ -331,7 +331,14 @@
             display: block;
         }
         
-        .distance {
-        margin: 20px
+        /* Adiciona distância entre o parágrafo e o formulário */
+        p {
+            margin-bottom: 20px; /* Espaço abaixo do parágrafo */
+        }
+
+        /* Estilo específico para o label do nome */
+        .label-nome {
+            display: block; /* Garante que o label fique em uma linha separada */
+            margin-top: 20px; /* Adiciona espaço acima do label */
         }
         
